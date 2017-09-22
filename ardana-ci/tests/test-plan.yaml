@@ -1,0 +1,125 @@
+#
+# (c) Copyright 2016 Hewlett Packard Enterprise Development LP
+# (c) Copyright 2017 SUSE LLC
+#
+# Licensed under the Apache License, Version 2.0 (the "License"); you may
+# not use this file except in compliance with the License. You may obtain
+# a copy of the License at
+#
+# http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+# WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+# License for the specific language governing permissions and limitations
+# under the License.
+#
+---
+
+# Singleton Tests
+
+# Test Normal Stop  (one node)
+- name: Test stop one ceilometer on singleton Cluster
+  logfile: testsuite-stop.log
+  prefix: stop-ceilometer
+  playbooks:
+    - ceilometer-stop.yml --limit=project-cp1-c0-m1-mgmt
+
+
+# Test ceilometer Still down
+- name: Validate ceilometer Down
+  logfile: testsuite-stop.log
+  prefix: validate-ceilometer-down
+  exec:
+    - validate-ceilometer-down.bash
+
+- name: Test start one ceilometer on Multi-Node Cluster
+  logfile: testsuite-stop.log
+  prefix: start-ceilometer
+  playbooks:
+    - ceilometer-start.yml --limit=project-cp1-c0-m1-mgmt
+
+- name: Validate ceilometer Up
+  logfile: testsuite-stop.log
+  prefix: validate-ceilometer-up
+  exec:
+    - validate-ceilometer-up.bash
+
+# Test Noop Reconfigure
+- name: Test Noop reconfigure
+  logfile: testsuite-reconfigure-noop.log
+  prefix: testsuite-reconfigure-noop
+  playbooks:
+    - ceilometer-reconfigure.yml
+
+# Test ceilometer is up - This should test that ceilometer has not restarted (TBD)
+- name: Validate ceilometer
+  logfile: testsuite-reconfigure-noop.log
+  prefix: validate-ceilometer
+  exec:
+    - validate-ceilometer-up.bash
+
+- name: Update conf file change
+  logfile: testsuite-reconfigure-conf-change.log
+  prefix: update-conf-all
+  exec:
+    - update-conf.bash 's/pipeline_polling_interval = 30/pipeline_polling_interval = 60/g' ./ceilometer/ceilometer.conf.j2
+
+- name: Test reconfigure conf file change
+  logfile: testsuite-reconfigure-conf-change.log
+  prefix: reconfigure-conf-all
+  playbooks:
+    - ceilometer-reconfigure.yml
+
+- name: Validate ceilometer
+  logfile: testsuite-reconfigure-conf-change.log
+  prefix: reconfigure-conf-all
+  exec:
+    - validate-ceilometer-up.bash
+
+
+- name: Update password  for single control plane
+  logfile: testsuite-reconfigure-pwd-change.log
+  prefix: update-pwd
+  exec:
+    - update-pwd.bash ~/ardana-ci-tests/pwd_change_cp1.yml
+
+- name: Test reconfigure password change
+  logfile: testsuite-reconfigure-pwd-change.log
+  prefix: reconfigure-password-change
+  playbooks:
+    - ceilometer-reconfigure-credentials-change.yml
+
+- name: Test Password Change Result
+  logfile: testsuite-reconfigure-pwd-change.log
+  prefix: test-conf-limited
+  exec:
+    - validate-ceilometer-up.bash
+
+- name: Test Pasword change Result - Password on control planes
+  logfile: testsuite-reconfigure-conf-change.log
+  prefix: test-conf-limited
+  become: yes
+  exec:
+    -  test-conf.bash cp1 mynewpassword /etc/ceilometer/ceilometer.conf
+
+# Reboot Tests - Single Host reboots  TBD check if test harness has
+# long enough sleep as next test failing occassionally without sleep
+- name: Test reboot server2
+  logfile: reboot.log
+  prefix: reboot-server2
+  vms:
+    - reboot: server2
+
+- name: Test reboot server2
+  logfile: reboot.log
+  prefix: sleep-for-1
+  exec:
+    - sleep 60
+
+- name: Test we are up
+  logfile: reboot.log
+  prefix: validate-ceilometer-up
+  exec:
+    - validate-ceilometer-up.bash
+
