@@ -16,7 +16,7 @@
 # under the License.
 #
 set -evx
-cp $1 ~/ardana/change_credentials/
+cp $1 ~/openstack/change_credentials/
 pushd ~/openstack/ardana/ansible/
 
 # Next two lines should not be necessary but are, checking why
