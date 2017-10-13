@@ -19,13 +19,11 @@
 ---
 - include: ../../_CEI-CMN/tasks/install.yml
 
-- name: CEI-API | install | Remove Ceilometer API DPKG (if exists)
+- name: CEI-API | install | Remove Ceilometer API package if exists
   become: yes
-  apt:
+  package:
     name: ceilometer-api
-    install_recommends: no
     state: absent
-    force: yes
   ignore_errors: True
 
 - name: CEI-API | install | Update venv Cache
@@ -66,15 +64,18 @@
 # to global_conf i.e. /etc/ceilometer
 
 - name: CEI-API | install | Install modwsgi dependencies
-  apt:
-    state: latest
-    name: "{{ item }}"
   become: yes
-  become_method: sudo
-  with_items:
-    - libapache2-mod-wsgi
-    - libssl-dev
-    - libapache2-mod-shib2
-    - libffi-dev
-    - libmysqlclient18
-    - python-httplib2 # Required for ansible url plugin
+  package:
+    name: "{{ item }}"
+    state: latest
+  with_items: ceilometer_api_dependencies
+
+- name: CEI-API | install | Create /var/www/ceilometer  directory
+  become: yes
+  file:
+    path: /var/www/ceilometer
+    owner: "{{ ceilometer_user }}"
+    group: "{{ ceilometer_group }}"
+    mode: 0755
+    state: directory
+    recurse: yes

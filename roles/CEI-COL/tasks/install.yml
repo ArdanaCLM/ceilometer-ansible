@@ -19,13 +19,11 @@
 ---
 - include: ../../_CEI-CMN/tasks/install.yml
 
-- name: CEI-COL | install | Remove Ceilometer Collector DPKG (if exists)
+- name: CEI-COL | install | Remove Ceilometer Collector package if exists
   become: yes
-  apt:
+  package:
     name: ceilometer-collector
-    install_recommends: no
     state: absent
-    force: yes
   ignore_errors: True
 
 - name: CEI-COL | install | Update venv Cache

@@ -47,6 +47,16 @@
     - ceilometer_static_info_mapping.yaml
   become: yes
 
+- name: CEI-API | start | Create symbolic link for startup file
+  become: yes
+  file:
+    src: "{{ ceilometer_api_venv_dir }}/lib/python2.7/site-packages\
+          /ceilometer/api/app.wsgi"
+    dest: "/var/www/ceilometer/{{ ceilometer_component }}"
+    owner: root
+    group: "{{ ceilometer_group }}"
+    state: link
+
 - name: CEI-API | start | Enable Ceilometer site
   become: yes
   command: a2ensite ceilometer_modwsgi

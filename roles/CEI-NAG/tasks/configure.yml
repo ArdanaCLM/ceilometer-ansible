@@ -68,8 +68,11 @@
     - ceilometer-agent-notification-json.log
   register: ardana_notify_ceilometer_nag_restart_required
 
+# With 'enable' SLES systemctl fails, claiming 'Too many levels of symbolic
+# links', if service is already enabled and systemd unit file is symlink.
+# So reenable is the suggested option.
 - name: CEI-NAG | configure | Enable the ceilometer notifiation agent
     services to start on boot
   become: yes
-  command: systemctl enable ceilometer-agent-notification
+  command: systemctl reenable ceilometer-agent-notification
   register: ardana_notify_ceilometer_nag_restart_required

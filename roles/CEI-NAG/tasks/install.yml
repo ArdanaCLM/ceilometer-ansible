@@ -20,13 +20,11 @@
 
 - include: ../../_CEI-CMN/tasks/install.yml
 
-- name: CEI-NAG | install | Remove Ceilometer Agent Notification DPKG if exists
+- name: CEI-NAG | install | Remove Ceilometer Agent Notification package
   become: yes
-  apt:
+  package:
     name: ceilometer-agent-notification
-    install_recommends: no
     state: absent
-    force: yes
   ignore_errors: True
 
 - name: CEI-NAG | install | Update venv Cache

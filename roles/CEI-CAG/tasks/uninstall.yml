@@ -46,11 +46,10 @@
         ceilometer_cag_unistalled_result is not defined
   register: ceilometer_cag_unistalled_result
 
-- name: CEI-CAG | uninstall | Remove Ceilometer Agent Central DPKG (if exists)
+- name: CEI-CAG | uninstall | Remove Ceilometer Agent Central package if exists
   become: yes
-  apt:
+  package:
     name: ceilometer-agent-central
-    install_recommends: no
     state: absent
     force: yes
   ignore_errors: True

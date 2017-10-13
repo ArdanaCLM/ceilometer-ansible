@@ -39,11 +39,9 @@
   notify:
     - reload systemd
 
-- name: CEI-COL | uninstall | Remove CEI-COL DPKG (if exists)
+- name: CEI-COL | uninstall | Remove CEI-COL package if exists
   become: yes
-  apt:
+  package:
     name: ceilometer-collector
-    install_recommends: no
     state: absent
-    force: yes
   ignore_errors: True

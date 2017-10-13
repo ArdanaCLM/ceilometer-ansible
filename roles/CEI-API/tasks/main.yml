@@ -1,5 +1,4 @@
 #
-# (c) Copyright 2016 Hewlett Packard Enterprise Development LP
 # (c) Copyright 2017 SUSE LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License"); you may
@@ -15,17 +14,5 @@
 # under the License.
 #
 
-# Uninstall CEI-EXP
----
-- name: CEI-EXP | uninstall | remove service from cron
-  become: yes
-  file:
-    path: /etc/cron.d/ceilometer-expirer-cron
-    state: absent
-
-- name: CEI-EXP | uninstall | Remove CEI-EXP package if exists
-  become: yes
-  package:
-    name: ceilometer-expirer
-    state: absent
-  ignore_errors: True
+- name: CEI-API | main | include OS specific variables
+  include_vars: "{{ ansible_os_family | lower }}.yml"

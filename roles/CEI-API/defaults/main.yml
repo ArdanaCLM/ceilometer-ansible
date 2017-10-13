@@ -30,6 +30,7 @@ ceilometer_api_activate_required: false
 ceilometer_api_conf_dir: "{{ 'ceilometer-api' | config_dir() }}"
 ceilometer_api_venv_share_dir: "{{ 'ceilometer-api' | share_dir() }}/ceilometer"
 ceilometer_api_bin_dir:  "{{ 'ceilometer-api' | bin_dir() }}"
+ceilometer_api_venv_dir: "{{ ceilometer_component | venv_dir }}"
 
 notification_driver_name: "log"
 audit_filter: ""

@@ -19,8 +19,8 @@
 Listen {{ ceilometer_api_bind_host }}:{{ ceilometer_api_bind_port }}
 
 <VirtualHost *:8777>
-  WSGIScriptAlias / {{ ceilometer_api_bin_dir }}/../lib/python2.7/site-packages/ceilometer/api/app.wsgi
-  WSGIDaemonProcess ceilometer user=ceilometer group=ceilometer processes=4 threads=5 socket-timeout=600 python-path={{ ceilometer_api_bin_dir }}/../:{{ ceilometer_api_bin_dir }}/../lib/python2.7/site-packages display-name=ceilometer-api
+  WSGIScriptAlias / /var/www/ceilometer/ceilometer-api
+  WSGIDaemonProcess ceilometer user=ceilometer group=ceilometer processes=4 threads=5 socket-timeout=600 python-path={{ ceilometer_api_venv_dir }}:{{ ceilometer_api_venv_dir }}/lib/python2.7/site-packages/ display-name=ceilometer-api
   WSGIApplicationGroup ceilometer
   WSGIProcessGroup ceilometer
 
@@ -28,7 +28,7 @@ Listen {{ ceilometer_api_bind_host }}:{{ ceilometer_api_bind_port }}
   LogLevel {{ ceilometer_loglevel }}
   CustomLog /var/log/ceilometer/ceilometer_access.log combined
 
-  <Directory {{ ceilometer_api_bin_dir }}/../lib/python2.7/site-packages/ceilometer>
+  <Directory {{ ceilometer_api_venv_dir }}/lib/python2.7/site-packages/ceilometer>
     Options Indexes FollowSymLinks MultiViews
     Require all granted
     AllowOverride None
