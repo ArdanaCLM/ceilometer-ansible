@@ -21,7 +21,7 @@ Listen {{ ceilometer_api_bind_host }}:{{ ceilometer_api_bind_port }}
 <VirtualHost *:8777>
   WSGIScriptAlias / /var/www/ceilometer/ceilometer-api
   WSGIDaemonProcess ceilometer user=ceilometer group=ceilometer processes=4 threads=5 socket-timeout=600 python-path={{ ceilometer_api_venv_dir }}:{{ ceilometer_api_venv_dir }}/lib/python2.7/site-packages/ display-name=ceilometer-api
-  WSGIApplicationGroup ceilometer
+  WSGIApplicationGroup %{GLOBAL}
   WSGIProcessGroup ceilometer
 
   ErrorLog /var/log/ceilometer/ceilometer_modwsgi.log
