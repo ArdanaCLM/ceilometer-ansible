@@ -65,6 +65,12 @@
     ceilometer_common_bin_dir: "{{ 'ceilometer-common' |
       bin_dir(ceilometer_common_install_result.version) }}"
 
+# Install Monasca Ceilometer (For Ocata only)
+- include: ../../_CEI-CMN/tasks/_install_monasca_ceilometer.yml
+  vars:
+    ceilometer_bin_dir: "{{ ceilometer_common_bin_dir }}"
+    ceilometer_conf_dir: "{{ ceilometer_common_conf_dir }}"
+
 ### Creating needed directories ###
 
 - name: _CEI-CMN | install | Creating Ceilometer directories

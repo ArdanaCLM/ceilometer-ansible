@@ -29,6 +29,10 @@
   src: "../../CEI-NAG/templates/pipeline-agent-notification.yaml.j2"
   dest: "{{ ceilometer_nag_conf_dir }}/pipeline-agent-notification.yaml"
 
+- include: ../../_CEI-CMN/tasks/_write_conf.yml
+  src: "../../CEI-NAG/templates/event-pipeline-agent-notification.yaml.j2"
+  dest: "{{ ceilometer_nag_conf_dir }}/event-pipeline-agent-notification.yaml"
+
 - name: CEI-NAG | pipeline_configure | Register ceilometer nag restart
   command: /bin/true
   register: ardana_notify_ceilometer_nag_restart_required

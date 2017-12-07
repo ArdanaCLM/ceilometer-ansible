@@ -42,6 +42,7 @@
     - api_paste.ini
     - ceilometer.conf
     - pipeline-api.yaml
+    - event-pipeline-api.yaml
     - policy.json
     - ceilosca_mapping.yaml
     - ceilometer_static_info_mapping.yaml
@@ -50,8 +51,7 @@
 - name: CEI-API | start | Create symbolic link for startup file
   become: yes
   file:
-    src: "{{ ceilometer_api_venv_dir }}/lib/python2.7/site-packages\
-          /ceilometer/api/app.wsgi"
+    src: "{{ ceilometer_api_venv_dir }}/bin/ceilometer-api"
     dest: "/var/www/ceilometer/{{ ceilometer_component }}"
     owner: root
     group: "{{ ceilometer_group }}"

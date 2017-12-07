@@ -29,10 +29,13 @@ paste.app_factory = ceilometer.api.app:app_factory
 
 [filter:authtoken]
 paste.filter_factory = keystonemiddleware.auth_token:filter_factory
+oslo_config_project = ceilometer
 
 [filter:healthcheck]
-paste.filter_factory = ceilometer.api.app:filter_factory
+paste.filter_factory = ceilometer.api.health:filter_factory
+oslo_config_project = ceilometer
 
 [filter:audit]
 paste.filter_factory = keystonemiddleware.audit:filter_factory
 audit_map_file = {{ ceilometer_api_conf_dir }}/api_audit_map.conf
+oslo_config_project = ceilometer

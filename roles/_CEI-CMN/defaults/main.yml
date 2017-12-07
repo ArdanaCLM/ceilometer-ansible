@@ -70,6 +70,8 @@ id_priv_protocol: "{{ CEI_CMN.consumes_KEY_API.vips.private[0].protocol }}"
 id_priv_uri: "{{ CEI_CMN.consumes_KEY_API.vips.private[0].url }}"
 id_service_auth_url:  "{{ id_priv_uri }}/{{ keyston_ver }}"
 id_service_tenant: "{{ KEY_API.vars.keystone_service_tenant }}"
+id_ca_cert: /etc/ssl/certs/ca-certificates.crt
+id_region: region1
 
 # Ceilometer variables
 cm_priv_host: "{{ CEI_API.advertises.vips.private[0].host }}"

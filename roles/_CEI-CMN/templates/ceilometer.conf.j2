@@ -17,16 +17,12 @@
 #
 #}
 [DEFAULT]
+# debug = true
+# log_options = true
 rpc_backend=rabbit
 refresh_pipeline_cfg = True
 pipeline_polling_interval = 30
-trove_control_exchange = ceilometer
-sahara_control_exchange = ceilometer
-magnetodb_control_exchange = ceilometer
-zaqar_control_exchange = ceilometer
-control_plane={{ control_plane }}
-cluster={{ cluster }}
-cloud_name={{ cloud_name }}
+
 
 [oslo_messaging_rabbit]
 rabbit_hosts={{ ceilometer_rabbit_hosts_port_pair }}
@@ -53,11 +49,16 @@ interface=internalURL
 auth_type=password
 
 [keystone_authtoken]
-auth_type=password
-auth_url={{ id_auth_url }}
-signing_dir={{ signing_dir }}
-password={{ id_password }}
-username={{ ceilometer_user }}
+auth_type = v3password
+auth_url = {{ id_admin_uri }}/v3
+auth_uri = {{ id_admin_uri }}/v3
+project_domain_name = Default
+project_name = {{ keystone.admin_tenant }}
+user_domain_name = Default
+username = {{ ceilometer_user }}
+password = {{ id_password }}
+region_name = {{ id_region }}
+cafile = {{ id_ca_cert }}
 
 [database]
 connection={{ cm_backend_connection }}
@@ -70,3 +71,13 @@ heartbeat=1.0
 
 [monasca]
 enable_api_pagination=True
+database_retry_interval=5
+database_max_retries=5
+service_auth_url={{ id_service_auth_url }}
+service_password={{ id_password }}
+service_username={{ ceilometer_user }}
+service_interface=internalURL
+service_auth_type=password
+service_domain_name=Default
+service_verify={{ id_ca_cert }}
+service_region_name={{ id_region }}
