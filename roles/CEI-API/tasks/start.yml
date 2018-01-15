@@ -63,6 +63,7 @@
   register: ceilometer_enable_result
   changed_when: ( ceilometer_enable_result | success ) and
                 ( 'already enabled' not in ceilometer_enable_result.stdout )
+  when: ansible_os_family == 'Debian'
 
 - include: "{{ playbook_dir }}/roles/FND-AP2/tasks/start_reload.yml"
   vars:
