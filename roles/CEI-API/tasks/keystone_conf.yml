@@ -60,6 +60,19 @@
     action: "grant_project_role"
   run_once: true
 
+- name: CEI-API | keystone_conf | Apply domain observer Role to  service project
+  become: yes
+  keystone_v3:
+    user_name: ceilometer
+    user_domain_name: "Default"
+    project_domain_name: "Default"
+    project_name: "{{ id_service_tenant }}"
+    role_name: "{{ id_domain_observer_role }}"
+    login_token: "{{ domain_scoped_token_result.result }}"
+    endpoint: "{{ id_admin_uri }}/{{ service_config_keystone_ver }}"
+    action: "grant_project_role"
+  run_once: true
+
 - name: CEI-API | keystone_conf | Apply admin Role to admin user admin project
   become: yes
   keystone_v3:
