@@ -184,11 +184,11 @@
 
 ### Configuring Apache changes ###
 
-- name: CEI-API | configure  | Copies modwsgi directory
+- name: CEI-API | configure | Create Ceilometer vhost
   become: yes
   template:
     src: ceilometer_modwsgi.conf.j2
-    dest: "{{ apache2_vhost_dir }}/ceilometer_modwsgi.conf"
+    dest: "{{ apache2_vhost_dir }}/ceilometer_modwsgi.vhost"
     mode: 0640
   register: ardana_notify_ceilometer_api_restart_required
 
