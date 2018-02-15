@@ -40,7 +40,11 @@
 - name: _CEI-CMN | install | Installing Ceilometer Common code
   become: yes
   install_package:
-    name: ceilometer
+    name: "{%- if deployer_media_legacy_layout|bool -%}
+              ceilometer
+            {%- else -%}
+              monasca-ceilometer
+            {%- endif -%}"
     service: ceilometer-common
     state: present
     activate: act_off
@@ -65,11 +69,12 @@
     ceilometer_common_bin_dir: "{{ 'ceilometer-common' |
       bin_dir(ceilometer_common_install_result.version) }}"
 
-# Install Monasca Ceilometer (For Ocata only)
+# Install Monasca Ceilometer (For legacy venv deployments only)
 - include: ../../_CEI-CMN/tasks/_install_monasca_ceilometer.yml
   vars:
     ceilometer_bin_dir: "{{ ceilometer_common_bin_dir }}"
     ceilometer_conf_dir: "{{ ceilometer_common_conf_dir }}"
+  when: deployer_media_legacy_layout|bool
 
 ### Creating needed directories ###
 
