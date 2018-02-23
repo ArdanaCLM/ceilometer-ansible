@@ -15,21 +15,11 @@
 # under the License.
 #
 ---
-- name: CEI-API | stop | Disable apache site (hlinux)
-  become: yes
-  command: a2dissite ceilometer_modwsgi
-  register: command_result
-  failed_when: "('ERROR' in command_result.stderr
-    and 'Site ceilometer_modwsgi does not exist' not in command_result.stderr)
-    and 'disabled' not in command_result.stdout"
-  when: ansible_os_family == 'Debian'
-
-- name: CEI-API | stop | Disable apache site (SUSE)
+- name: CEI-API | stop | Disable Ceilometer site
   become: yes
   file:
     state: absent
     path: "{{ apache2_vhost_dir }}/ceilometer-modwsgi.conf"
-  when: ansible_os_family == 'Suse'
 
 # Reload Apache, ignore errors, if reload fails in stop as apache not
 # running, keep going

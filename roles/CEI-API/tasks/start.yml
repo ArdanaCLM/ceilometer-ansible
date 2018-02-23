@@ -57,21 +57,13 @@
     group: "{{ ceilometer_group }}"
     state: link
 
-- name: CEI-API | start | Enable Ceilometer site (hlinux)
+- name: CEI-API | start | Enable Ceilometer site
   become: yes
-  command: a2ensite ceilometer_modwsgi
-  register: ceilometer_enable_result
-  changed_when: ( ceilometer_enable_result | success ) and
-                ( 'already enabled' not in ceilometer_enable_result.stdout )
-  when: ansible_os_family == 'Debian'
-
-- name: CEI-API | start | Enable Ceilometer site (SUSE)
-  become: yes
-  template:
-    src: ceilometer_modwsgi.conf.j2
+  file:
+    src: "{{ apache2_vhost_dir }}/ceilometer_modwsgi.vhost"
     dest: "{{ apache2_vhost_dir }}/ceilometer_modwsgi.conf"
-    mode: 0644
-  when: ansible_os_family == 'Suse'
+    state: link
+  register: ceilometer_enable_result
 
 - include: "{{ playbook_dir }}/roles/FND-AP2/tasks/start_reload.yml"
   vars:
