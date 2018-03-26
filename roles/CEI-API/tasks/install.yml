@@ -71,7 +71,7 @@
   become: yes
   package:
     name: "{{ item }}"
-    state: latest
+    state: present
   with_items: ceilometer_api_dependencies
 
 - name: CEI-API | install | Create modwsgi handler directory
