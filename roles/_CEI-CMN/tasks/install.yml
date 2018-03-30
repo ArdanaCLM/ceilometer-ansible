@@ -22,15 +22,26 @@
   group:
     name: "{{ ceilometer_group }}"
 
+# Note that mod-wsgi requires a home directory exists, so create one securely
 - name: _CEI-CMN | install | creating ceilometer user
   become: yes
   user:
     name: "{{ ceilometer_user }}"
     group: "{{ ceilometer_group }}"
     createhome: no
-    home: /tmp
-    shell: /bin/true
+    home: "/var/lib/{{ ceilometer_user }}"
+    shell: /sbin/nologin
+    system: yes
     comment: "Ceilometer user"
+
+- name: _CEI-CMN | install | create ceilometer user home
+  become: yes
+  file:
+    path: "/var/lib/{{ ceilometer_user }}"
+    state: directory
+    owner: "{{ ceilometer_user }}"
+    group: "{{ ceilometer_group }}"
+    mode: 0700
 
 - name: _CEI-CMN | install | Update venv Cache
   become: yes
