@@ -33,6 +33,10 @@
     shell: /sbin/nologin
     system: yes
     comment: "Ceilometer user"
+  register: ceilometer_user_create_result
+  failed_when: ceilometer_user_create_result|failed and
+                "user {{ ceilometer_user }} is currently used by process"
+                not in ceilometer_user_create_result.msg
 
 - name: _CEI-CMN | install | create ceilometer user home
   become: yes
@@ -42,6 +46,7 @@
     owner: "{{ ceilometer_user }}"
     group: "{{ ceilometer_group }}"
     mode: 0700
+  when: not ceilometer_user_create_result|failed
 
 - name: _CEI-CMN | install | Update venv Cache
   become: yes
