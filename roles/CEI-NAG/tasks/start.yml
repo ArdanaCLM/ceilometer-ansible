@@ -21,11 +21,7 @@
 - name: CEI-NAG | start | Activate the latest install
   become: yes
   install_package:
-    name: "{%- if deployer_media_legacy_layout|bool -%}
-              ceilometer
-            {%- else -%}
-              monasca-ceilometer
-            {%- endif -%}"
+    name: "monasca-ceilometer"
     service: ceilometer-agent-notification
     activate: act_on
     version: "{{ ceilometer_nag_install_result.version }}"

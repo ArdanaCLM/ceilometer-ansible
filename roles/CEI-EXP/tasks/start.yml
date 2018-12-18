@@ -21,11 +21,7 @@
 - name: CEI-EXP | start | Activate the latest install
   become: yes
   install_package:
-    name: "{%- if deployer_media_legacy_layout|bool -%}
-              ceilometer
-            {%- else -%}
-              monasca-ceilometer
-            {%- endif -%}"
+    name: "monasca-ceilometer"
     service: ceilometer-expirer
     activate: act_on
     version: "{{ ceilometer_expirer_install_result.version }}"

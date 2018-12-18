@@ -20,11 +20,7 @@
 - name: _CEI-CMN | _activate | Activate the latest install
   become: yes
   install_package:
-    name: "{%- if deployer_media_legacy_layout|bool -%}
-              ceilometer
-            {%- else -%}
-              monasca-ceilometer
-            {%- endif -%}"
+    name: "monasca-ceilometer"
     service: ceilometer-common
     activate: act_on
     version: "{{ ceilometer_common_install_result.version }}"

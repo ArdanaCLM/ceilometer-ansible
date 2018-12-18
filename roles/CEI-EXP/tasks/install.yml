@@ -34,11 +34,7 @@
 - name: CEI-EXP | install | Installing Ceilometer EXP code
   become: yes
   install_package:
-     name: "{%- if deployer_media_legacy_layout|bool -%}
-               ceilometer
-             {%- else -%}
-               monasca-ceilometer
-             {%- endif -%}"
+     name: "monasca-ceilometer"
      service: ceilometer-expirer
      state: present
      activate: act_off

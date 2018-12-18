@@ -35,11 +35,7 @@
 - name: CEI-NAG | install | Installing Ceilometer Agent Notification code
   become: yes
   install_package:
-    name: "{%- if deployer_media_legacy_layout|bool -%}
-              ceilometer
-            {%- else -%}
-              monasca-ceilometer
-            {%- endif -%}"
+    name: "monasca-ceilometer"
     service: ceilometer-agent-notification
     state: present
     activate: act_off

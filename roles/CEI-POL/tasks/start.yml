@@ -21,11 +21,7 @@
 - name: CEI-POL | start | Activate the latest install
   become: yes
   install_package:
-    name: "{%- if deployer_media_legacy_layout|bool -%}
-              ceilometer
-            {%- else -%}
-              monasca-ceilometer
-            {%- endif -%}"
+    name: "monasca-ceilometer"
     service: ceilometer-polling
     activate: act_on
     version: "{{ ceilometer_polling_install_result.version }}"
