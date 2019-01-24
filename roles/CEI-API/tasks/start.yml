@@ -48,15 +48,6 @@
     - ceilometer_static_info_mapping.yaml
   become: yes
 
-- name: CEI-API | start | Create symbolic link for startup file
-  become: yes
-  file:
-    src: "{{ ceilometer_api_venv_dir }}/bin/ceilometer-api"
-    dest: "{{ www_root }}/ceilometer/{{ ceilometer_component }}"
-    owner: root
-    group: "{{ ceilometer_group }}"
-    state: link
-
 - name: CEI-API | start | Enable Ceilometer site
   become: yes
   file:

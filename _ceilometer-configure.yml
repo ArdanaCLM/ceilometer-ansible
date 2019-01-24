@@ -28,21 +28,6 @@
   tasks:
   - include: roles/CEI-POL/tasks/configure.yml
 
-- hosts: CEI-API
-  roles:
-  - CEI-API
-  tasks:
-  - include: roles/CEI-API/tasks/configure.yml
-
-- hosts: CEI-API
-  roles:
-    - CEI-API
-  # This task should be set to run-once
-  tasks:
-    - include: roles/CEI-API/tasks/keystone_conf.yml
-      ansible_python_interpreter:
-        "{{ KEY_CLI.vars.keystone_client_python_interpreter }}"
-
 - hosts: CEI-POL:CEI-CAG
   roles:
     - CEI-POL

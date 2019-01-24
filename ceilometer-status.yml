@@ -15,14 +15,6 @@
 # under the License.
 #
 ---
-- hosts: CEI-API
-  max_fail_percentage: 0
-  roles:
-    - CEI-API
-
-  tasks:
-    - include: roles/CEI-API/tasks/status.yml
-
 - hosts: CEI-NAG
   max_fail_percentage: 0
   roles:

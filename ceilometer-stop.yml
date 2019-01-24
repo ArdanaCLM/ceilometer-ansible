@@ -16,26 +16,12 @@
 #
 ---
 
-- hosts: CEI-COL
-  roles:
-  - CEI-COL
-
-  tasks:
-  - include: roles/CEI-COL/tasks/stop.yml
-
 - hosts: CEI-NAG
   roles:
   - CEI-NAG
 
   tasks:
   - include: roles/CEI-NAG/tasks/stop.yml
-
-- hosts: CEI-API
-  roles:
-  - CEI-API
-
-  tasks:
-  - include: roles/CEI-API/tasks/stop.yml
 
 - hosts: CEI-EXP
   roles:

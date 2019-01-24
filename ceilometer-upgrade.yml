@@ -22,12 +22,6 @@
   tasks:
   - include: roles/CEI-CAG/tasks/uninstall.yml
 
-- hosts: CEI-COL
-  roles:
-  - CEI-COL
-  tasks:
-  - include: roles/CEI-COL/tasks/uninstall.yml
-
 - hosts: CEI-EXP
   roles:
   - CEI-EXP

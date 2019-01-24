@@ -27,10 +27,4 @@
   tasks:
     - include: roles/_CEI-CMN/tasks/monasca_configure.yml
 
-- hosts: CEI-API:&MON-AGN
-  roles:
-    - _CEI-CMN
-  # All these tasks should be set to run-once
-  tasks:
-    - include: roles/_CEI-CMN/tasks/api_monasca_configure.yml
 

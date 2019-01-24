@@ -27,8 +27,3 @@
   tasks:
     - include: roles/CEI-POL/tasks/start.yml
 
-- hosts: CEI-API
-  roles:
-    - CEI-API
-  tasks:
-  - include: roles/CEI-API/tasks/start.yml
