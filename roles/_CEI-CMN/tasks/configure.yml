@@ -54,3 +54,18 @@
     group: "{{ ceilometer_group }}"
   become: yes
   register: ardana_notify_ceilometer_common_restart_required
+
+- name: _CEI-CMN | configure | Create several ceilometer config files
+  become: yes
+  template:
+    src: "{{ item[0] }}.j2"
+    dest: "{{ item[1] }}/{{ item[0] }}"
+    owner: "{{ ceilometer_user }}"
+    group: "{{ ceilometer_group }}"
+    mode: 0600
+  with_nested:
+    - ['pipeline-api.yaml',
+        'event-pipeline-api.yaml']
+    - ["{{ ceilometer_conf_dir }}"]
+  register: ardana_notify_ceilometer_common_restart_required
+
