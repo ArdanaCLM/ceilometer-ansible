@@ -19,16 +19,13 @@
 [DEFAULT]
 # debug = true
 # log_options = true
-rpc_backend=rabbit
 refresh_pipeline_cfg = True
 pipeline_polling_interval = 30
+transport_url = {{ ceilometer_transport_url }}
 
 
 [oslo_messaging_rabbit]
-rabbit_hosts={{ ceilometer_rabbit_hosts_port_pair }}
-rabbit_userid={{ ceilometer_rabbit_user }}
-rabbit_password={{ ceilometer_rabbit_password }}
-rabbit_use_ssl={{ ceilometer_rabbit_use_ssl }}
+ssl={{ ceilometer_rabbit_use_ssl }}
 
 [api]
 host={{ local_ip }}

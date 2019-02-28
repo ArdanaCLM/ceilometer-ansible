@@ -56,6 +56,14 @@ ceilometer_rabbit_user: "{{ CEI.consumes_FND_RMQ.vars.accounts.ceilometer.userna
 ceilometer_rabbit_password: "{{ CEI.consumes_FND_RMQ.vars.accounts.ceilometer.password }}"
 ceilometer_rabbit_use_ssl: "{{ CEI.consumes_FND_RMQ.members.private[0].use_tls }}"
 
+ceilometer_rabbit_hosts_port_pair_url:
+  "{% for x in CEI_CMN.consumes_FND_RMQ.members.private -%}
+   {{ ceilometer_rabbit_user }}:{{ ceilometer_rabbit_password }}@{{ x.host }}:{{ x.port }}
+   {%- if not loop.last -%},{% endif %}
+   {%- endfor %}"
+ceilometer_transport_url: "rabbit://{{ ceilometer_rabbit_hosts_port_pair_url }}//"
+
+
 # Identity variables
 id_admin_protocol: "{{ CEI_CMN.consumes_KEY_API.vips.private[0].protocol }}"
 id_admin_host: "{{ CEI_CMN.consumes_KEY_API.vips.private[0].host }}"
