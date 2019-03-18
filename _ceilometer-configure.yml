@@ -1,6 +1,6 @@
 #
 # (c) Copyright 2015-2016 Hewlett Packard Enterprise Development LP
-# (c) Copyright 2017 SUSE LLC
+# (c) Copyright 2017-2019 SUSE LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License"); you may
 # not use this file except in compliance with the License. You may obtain
@@ -33,3 +33,9 @@
     - CEI-POL
   tasks:
     - include: roles/CEI-POL/tasks/reconfigure_polling_for_swift.yml
+
+- hosts: CEI-CMN--first-member
+  roles:
+  - _CEI-CMN
+  tasks:
+  - include: roles/_CEI-CMN/tasks/keystone_conf.yml
