@@ -30,14 +30,6 @@
   src: "../../_CEI-CMN/templates/monasca-field-definitions.yaml.j2"
   dest: "{{ ceilometer_conf_dir }}/monasca_field_definitions.yaml"
 
-- include: _write_conf.yml
-  src: "../../_CEI-CMN/templates/ceilosca_mapping.yaml.j2"
-  dest: "{{ ceilometer_conf_dir }}/ceilosca_mapping.yaml"
-
-- include: _write_conf.yml
-  src: "../../_CEI-CMN/templates/ceilometer_static_info_mapping.yaml.j2"
-  dest: "{{ ceilometer_conf_dir }}/ceilometer_static_info_mapping.yaml"
-
 - name: _CEI-CMN | configure | configure monasca-field-definitions.yaml
   command: /bin/true
   register: ardana_notify_ceilometer_common_restart_required
@@ -68,4 +60,3 @@
         'event-pipeline-api.yaml']
     - ["{{ ceilometer_conf_dir }}"]
   register: ardana_notify_ceilometer_common_restart_required
-

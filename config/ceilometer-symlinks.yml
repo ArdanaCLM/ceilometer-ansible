@@ -28,6 +28,3 @@ symlinks:
   "ceilometer/pipeline-agent-notification.yaml.j2": "roles/CEI-NAG/templates/pipeline-agent-notification.yaml.j2"
   "ceilometer/pipeline-api.yaml.j2": "roles/_CEI-CMN/templates/pipeline-api.yaml.j2"
   "ceilometer/monasca-field-definitions.yaml.j2": "roles/_CEI-CMN/templates/monasca-field-definitions.yaml.j2"
-  "ceilometer/ceilosca_mapping.yaml.j2": "roles/_CEI-CMN/templates/ceilosca_mapping.yaml.j2"
-  "ceilometer/ceilometer_static_info_mapping.yaml.j2": "roles/_CEI-CMN/templates/ceilometer_static_info_mapping.yaml.j2"
-  

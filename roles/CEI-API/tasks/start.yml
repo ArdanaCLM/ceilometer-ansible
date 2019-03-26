@@ -44,8 +44,6 @@
     - pipeline-api.yaml
     - event-pipeline-api.yaml
     - policy.json
-    - ceilosca_mapping.yaml
-    - ceilometer_static_info_mapping.yaml
   become: yes
 
 - name: CEI-API | start | Enable Ceilometer site

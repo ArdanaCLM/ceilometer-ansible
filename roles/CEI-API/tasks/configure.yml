@@ -141,30 +141,6 @@
   become: yes
   register: ardana_notify_ceilometer_api_restart_required
 
-- name: CEI-API | configure | Configure ceilosca mapping for  Ceilometer API
-  ini_file:
-    dest: "{{ ceilometer_api_conf_dir }}/ceilometer.conf"
-    section: "monasca"
-    option: "ceilometer_monasca_metrics_mapping"
-    value: "{{ ceilometer_api_conf_dir }}/ceilosca_mapping.yaml"
-    backup: no
-    owner: "{{ ceilometer_user }}"
-    group: "{{ ceilometer_group }}"
-  become: yes
-  register: ardana_notify_ceilometer_api_restart_required
-
-- name: CEI-API | configure | Configure ceilosca mapping for  Ceilometer API
-  ini_file:
-    dest: "{{ ceilometer_api_conf_dir }}/ceilometer.conf"
-    section: "monasca"
-    option: "ceilometer_static_info_mapping"
-    value: "{{ ceilometer_api_conf_dir }}/ceilometer_static_info_mapping.yaml"
-    backup: no
-    owner: "{{ ceilometer_user }}"
-    group: "{{ ceilometer_group }}"
-  become: yes
-  register: ardana_notify_ceilometer_api_restart_required
-
 - name: CEI-API | configure | create ceilometer-api log
   become: yes
   file:

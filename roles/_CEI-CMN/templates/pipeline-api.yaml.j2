@@ -21,7 +21,6 @@ sources:
     - name: compute_source
       interval: 30
       meters:
-          - "instance"
           - "memory"
           - "vcpus"
       sinks:
@@ -29,30 +28,12 @@ sources:
     - name: network_source
       interval: 30
       meters:
-      meters:
-          - "network"
-          - "port"
-          - "router"
-          - "subnet"
-          - "ip.floating"
-          - "network.create"
-          - "network.update"
-          - "network.delete"
-          - "port.create"
-          - "port.delete"
-          - "port.update"
-          - "router.create"
-          - "router.delete"
-          - "router.update"
-          - "subnet.create"
-          - "subnet.delete"
-          - "subnet.update"
+          - "bandwidth"
       sinks:
           - meter_sink
     - name: image_source
       interval: 30
       meters:
-          - "image"
           - "image.size"
           - "image.update"
           - "image.upload"
@@ -62,16 +43,8 @@ sources:
     - name: volume_source
       interval: 30
       meters:
-          - "volume"
           - "volume.size"
-          - "snapshot"
           - "snapshot.size"
-          - "volume.delete.end"
-          - "volume.create.end"
-          - "volume.resize.end"
-          - "volume.update.end"
-          - "snapshot.create.end"
-          - "snapshot.delete.end"
       sinks:
           - meter_sink
     - name: swift_source
