@@ -18,14 +18,17 @@
 #}
 [DEFAULT]
 log_config_append={{ ceilometer_polling_conf_dir }}/polling-logging.conf
-
-pipeline_cfg_file={{ ceilometer_polling_conf_dir }}/pipeline-polling.yaml
 region_name = {{ region_name }}
 deployed_services = {{ deployed_services }}
+
+[polling]
+cfg_file={{ ceilometer_polling_conf_dir }}/pipeline-polling.yaml
 
 ##Need use service tenant as polling works for service tenants
 [service_credentials]
 project_name={{ id_service_tenant }}
+project_domain_name=Default
+user_domain_name=Default
 
 [keystone_authtoken]
 project_name={{ id_service_tenant }}

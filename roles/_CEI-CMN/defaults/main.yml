@@ -22,7 +22,7 @@ ceilometer_log_group: adm
 ceilometer_user: ceilometer
 ceilometer_group: ceilometer
 local_ip: 127.0.0.1
-keyston_ver: v2.0
+keyston_ver: v3
 service_config_keystone_ver: v3
 signing_dir: /mnt/state/var/lib/ceilometer/keystone-signing
 ceilometer_common_conf_dir: "{{ 'ceilometer-common' | config_dir() }}"
